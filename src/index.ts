@@ -3,8 +3,9 @@ import express from "express"
 const app = express()
 const port = 3000
 
-app.get("/", (_req, res) => {
-  res.json({ message: "Hello ESM + TypeScript!" })
+app.get("/salary/player/:id", (_req, res) => {
+  const id = _req.params.id
+  res.json({ id })
 })
 
 app.listen(port, () => {
