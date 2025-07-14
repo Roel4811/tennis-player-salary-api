@@ -1,0 +1,3 @@
+- assumptions:
+    - no tiebreaks in results, but sets can have two games difference (7-5).
+    - all matches in the data are finished matches
