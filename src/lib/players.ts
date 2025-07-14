@@ -1,8 +1,7 @@
 import { Match, Player } from "../types"
 
-export const findPlayer = (players: Player[], playerId: number): Player => {
+export const findPlayer = (players: Player[], playerId: number): Player | undefined => {
   const player = players.find((p) => p.id === playerId)
-  if (!player) throw new Error(`Player with id ${playerId} not found.`)
   return player
 }
 
