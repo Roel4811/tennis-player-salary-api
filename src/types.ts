@@ -8,19 +8,19 @@ export type Match = z.infer<typeof matchSchema>
 export type Player = z.infer<typeof playerSchema>
 
 export const REWARDS = {
-  MATCHES_PLAYED: 500,
-  MATCHES_WON: 2500,
-  SETS_WON: 750,
-  GAMES_WON: 200,
-  ACES: 100,
-  SMASHED_RACKETS: -500,
-  DOUBLE_FAULTS: -100,
+  MATCH_PLAYED: 500,
+  MATCH_WON: 2500,
+  SET_WON: 750,
+  GAME_WON: 200,
+  ACE: 100,
+  SMASHED_RACKET: -500,
+  DOUBLE_FAULT: -100,
 } as const
 
 export type RewardType = keyof typeof REWARDS
 
 export const REWARD_CATEGORIES = {
-  match: ["MATCHES_PLAYED", "MATCHES_WON"],
-  bonus: ["SETS_WON", "GAMES_WON", "ACES"],
-  penalty: ["SMASHED_RACKETS", "DOUBLE_FAULTS"],
+  match: ["MATCH_PLAYED", "MATCH_WON"],
+  bonus: ["SET_WON", "GAME_WON", "ACE"],
+  penalty: ["SMASHED_RACKET", "DOUBLE_FAULT"],
 } as const

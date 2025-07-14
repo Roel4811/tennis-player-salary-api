@@ -1,4 +1,4 @@
-import { makeMatch } from "../../__testUtils__/index.ts"
+import { makeMatch, makePlayer } from "../../__testUtils__/index.ts"
 import { calcTotalSalary } from "../salaryService"
 
 jest.mock("../../types", () => ({
@@ -15,6 +15,7 @@ jest.mock("../../types", () => ({
 }))
 
 describe("calcTotalSalary", () => {
+  const player = makePlayer(1, "Player 1")
   const matches = [
     makeMatch({
       playerId: 1,
@@ -45,11 +46,11 @@ describe("calcTotalSalary", () => {
   ]
 
   it("calculates total salary correctly", () => {
-    const salary = calcTotalSalary(matches)
+    const salary = calcTotalSalary(matches, player.id)
     expect(salary).toBe(175)
   })
 
   it("returns 0 for empty matches", () => {
-    expect(calcTotalSalary([])).toBe(0)
+    expect(calcTotalSalary([], player.id)).toBe(0)
   })
 })

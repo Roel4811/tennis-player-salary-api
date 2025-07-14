@@ -1,15 +1,25 @@
-import { Result } from "../../types"
+import { Match } from "../../types"
 
-export const countPlayerAces = (aces: [number, number]): number => {
-  const [playerAces] = aces
-  return playerAces
+export const countPlayerAces = (
+  match: Match,
+  currentPlayerId: number
+): number => {
+  const playerIndex = match.playerId === currentPlayerId ? 0 : 1
+  return match.aces[playerIndex]
 }
 
-export const countPlayerSetsWon = (scores: Result[]): number => {
-  return scores.filter(([player]) => {
-    return player >= 6
-  }).length
+export const countPlayerSetsWon = (
+  match: Match,
+  currentPlayerId: number
+): number => {
+  const playerIndex = match.playerId === currentPlayerId ? 0 : 1
+  return match.result.filter((scores) => scores[playerIndex] >= 6).length
 }
 
-export const countGamesWon = (scores: [number, number][]): number =>
-  scores.reduce((acc, [player]) => acc + player, 0)
+export const countGamesWon = (
+  match: Match,
+  currentPlayerId: number
+): number => {
+  const playerIndex = match.playerId === currentPlayerId ? 0 : 1
+  return match.result.reduce((acc, scores) => acc + scores[playerIndex], 0)
+}

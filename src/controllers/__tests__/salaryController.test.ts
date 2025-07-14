@@ -43,7 +43,11 @@ describe("SalaryController", () => {
 
     controller.getPlayerSalary(req as Request, res as Response)
 
-    expect(res.json).toHaveBeenCalledWith({ salary: 100 })
+    expect(res.json).toHaveBeenCalledWith({
+      id: 1,
+      name: "Player 1",
+      salary: 100,
+    })
   })
 
   it("should return 404 if player not found", () => {

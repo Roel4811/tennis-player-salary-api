@@ -12,16 +12,16 @@ export class SalaryController {
       const matches = getMatches()
       const playerId = Number(req.params.id)
 
-      const player = findPlayer(players, playerId)
-      if (!player) {
+      const currentPlayer = findPlayer(players, playerId)
+      if (!currentPlayer) {
         res.status(404).json({ error: "Player not found" })
         return
       }
 
-      const playerMatches = findPlayerMatches(player.id, matches)
-      const salary = calcTotalSalary(playerMatches)
+      const playerMatches = findPlayerMatches(currentPlayer.id, matches)
+      const salary = calcTotalSalary(playerMatches, playerId)
 
-      res.json({ id: playerId, name: player.name, salary })
+      res.json({ id: playerId, name: currentPlayer.name, salary })
     } catch (error) {
       if (error instanceof ZodError) {
         res.status(400).json({ error: "Invalid data", details: error.issues })

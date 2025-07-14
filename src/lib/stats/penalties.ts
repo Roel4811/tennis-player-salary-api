@@ -1,9 +1,17 @@
-export const countPlayerSmashedRackets = (smashedRackets: [number, number]): number => {
-  const [playerSmashedRackets] = smashedRackets
-  return playerSmashedRackets
+import { Match } from "../../types"
+
+export const countPlayerSmashedRackets = (
+  match: Match,
+  currentPlayerId: number
+): number => {
+  const playerIndex = match.playerId === currentPlayerId ? 0 : 1
+  return match.smashedRackets[playerIndex]
 }
 
-export const countPlayerDoubleFaults = (doubleFaults: [number, number]): number => {
-  const [playerDoubleFaults] = doubleFaults
-  return playerDoubleFaults
+export const countPlayerDoubleFaults = (
+  match: Match,
+  currentPlayerId: number
+): number => {
+  const playerIndex = match.playerId === currentPlayerId ? 0 : 1
+  return match.doubleFaults[playerIndex]
 }

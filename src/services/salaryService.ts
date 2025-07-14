@@ -10,33 +10,48 @@ import {
 } from "../lib/stats/penalties"
 import { Match, REWARD_CATEGORIES, REWARDS, RewardType } from "../types"
 
-const rewardCalculators: Record<RewardType, (matches: Match[]) => number> = {
-  MATCHES_PLAYED: (matches) => matches.length,
-  MATCHES_WON: (matches) =>
-    matches.filter((match) => hasPlayerWonMatch(match.result)).length,
-  SETS_WON: (matches) =>
-    countPlayerSetsWon(matches.flatMap((match) => match.result)),
-  GAMES_WON: (matches) =>
-    countGamesWon(matches.flatMap((match) => match.result)),
-  ACES: (matches) =>
-    matches.reduce((sum, match) => sum + countPlayerAces(match.aces), 0),
-  SMASHED_RACKETS: (matches) =>
+const rewardCalculators: Record<
+  RewardType,
+  (matches: Match[], currentPlayerId: number) => number
+> = {
+  MATCH_PLAYED: (matches) => matches.length,
+  MATCH_WON: (matches, currentPlayerId) =>
+    matches.filter((match) => hasPlayerWonMatch(match, currentPlayerId)).length,
+  SET_WON: (matches, currentPlayerId) =>
     matches.reduce(
-      (sum, match) => sum + countPlayerSmashedRackets(match.smashedRackets),
+      (sum, match) => sum + countPlayerSetsWon(match, currentPlayerId),
       0
     ),
-  DOUBLE_FAULTS: (matches) =>
+  GAME_WON: (matches, currentPlayerId) =>
     matches.reduce(
-      (sum, match) => sum + countPlayerDoubleFaults(match.doubleFaults),
+      (sum, match) => sum + countGamesWon(match, currentPlayerId),
+      0
+    ),
+  ACE: (matches, currentPlayerId) =>
+    matches.reduce(
+      (sum, match) => sum + countPlayerAces(match, currentPlayerId),
+      0
+    ),
+  SMASHED_RACKET: (matches, currentPlayerId) =>
+    matches.reduce(
+      (sum, match) => sum + countPlayerSmashedRackets(match, currentPlayerId),
+      0
+    ),
+  DOUBLE_FAULT: (matches, currentPlayerId) =>
+    matches.reduce(
+      (sum, match) => sum + countPlayerDoubleFaults(match, currentPlayerId),
       0
     ),
 }
 
-export const calcTotalSalary = (matches: Match[]): number => {
+export const calcTotalSalary = (
+  matches: Match[],
+  currentPlayerId: number
+): number => {
   const allRewards = Object.values(REWARD_CATEGORIES).flat()
 
   return allRewards.reduce((total, rewardKey) => {
-    const value = rewardCalculators[rewardKey](matches)
+    const value = rewardCalculators[rewardKey](matches, currentPlayerId)
     const unit = REWARDS[rewardKey]
     return total + value * unit
   }, 0)
