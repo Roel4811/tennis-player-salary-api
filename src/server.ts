@@ -1,10 +1,12 @@
 import express from "express"
-import { findPlayer, findPlayerMatches } from "./lib/players"
-import { calcTotalSalary } from "./lib/salary"
+import { findPlayer, findPlayerMatches } from "./lib/player"
+import { calcTotalSalary } from "./services/salaryService"
 import rawData from "./data/player_data_v1.json"
-import { matchSchema, playerSchema } from "./schema/schema"
+import { playerSchema } from "./schema/playerSchema"
 import z, { ZodError } from "zod"
 import { Match, Player } from "./types"
+import { matchSchema } from "./schema/matchSchema"
+import salaryRouter from "./routers/salaryRouter"
 
 const app = express()
 const port = 3000
@@ -45,9 +47,11 @@ app.get("/salary/player/:id", (_req, res) => {
   res.json({
     id,
     name: player.name,
-    totalSalary: calcTotalSalary(player, playerMatches),
+    totalSalary: calcTotalSalary(playerMatches),
   })
 })
+
+app.use("/api", salaryRouter)
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)

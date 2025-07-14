@@ -1,4 +1,4 @@
-import { z } from "zod"
+import z from "zod"
 
 const scoreSchema = z.tuple([z.number(), z.number()])
 
@@ -9,9 +9,4 @@ export const matchSchema = z.object({
   aces: scoreSchema,
   smashedRackets: scoreSchema,
   doubleFaults: scoreSchema,
-})
-
-export const playerSchema = z.object({
-  id: z.number(),
-  name: z.string(),
 })

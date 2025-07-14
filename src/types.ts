@@ -1,7 +1,8 @@
 import z from "zod"
-import { matchSchema, playerSchema } from "./schema/schema"
+import { playerSchema } from "./schema/playerSchema"
+import { matchSchema } from "./schema/matchSchema"
 
-export type Score = [number, number]
+export type SetScore = [number, number]
 
 export type Match = z.infer<typeof matchSchema>
 export type Player = z.infer<typeof playerSchema>
