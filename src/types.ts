@@ -1,18 +1,10 @@
+import z from "zod"
+import { matchSchema, playerSchema } from "./schema/schema"
+
 export type Score = [number, number]
 
-export type Match = {
-  playerId: number
-  opponentId: number
-  result: Score[]
-  aces: [number, number]
-  smashedRackets: [number, number]
-  doubleFaults: [number, number]
-}
-
-export type Player = {
-  id: number
-  name: string
-}
+export type Match = z.infer<typeof matchSchema>
+export type Player = z.infer<typeof playerSchema>
 
 export const REWARDS = {
   MATCH_PLAYED: 500,
