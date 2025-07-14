@@ -1,8 +1,15 @@
+import { Match } from "../types"
+
 export const countPlayerSetsWon = (scores: [number, number][]): number => {
   return scores.filter(([player]) => {
     return player >= 6
   }).length
 }
+
+export const countMatchesPlayed = (
+  playerId: number,
+  matches: Match[]
+): number => matches.filter((match) => match.playerId === playerId).length
 
 export const isMatchFinished = (scores: [number, number][]): boolean => {
   const { playerSets, opponentSets } = scores.reduce(
@@ -29,3 +36,18 @@ export const hasPlayerWonMatch = (scores: [number, number][]): boolean => {
 
 export const countGamesWon = (scores: [number, number][]): number =>
   scores.reduce((acc, [player]) => acc + player, 0)
+
+export const countPlayerAces = (aces: [number, number]): number => {
+  const [playerAces] = aces
+  return playerAces
+}
+
+export const countPlayerSmashedRackets = (smashedRackets: [number, number]): number => {
+  const [playerSmashedRackets] = smashedRackets
+  return playerSmashedRackets
+}
+
+export const countPlayerDoubleFaults = (doubleFaults: [number, number]): number => {
+  const [playerDoubleFaults] = doubleFaults
+  return playerDoubleFaults
+}
