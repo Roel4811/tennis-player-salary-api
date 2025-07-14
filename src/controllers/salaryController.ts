@@ -21,7 +21,7 @@ export class SalaryController {
       const playerMatches = findPlayerMatches(player.id, matches)
       const salary = calcTotalSalary(playerMatches)
 
-      res.json({ salary })
+      res.json({ id: playerId, name: player.name, salary })
     } catch (error) {
       if (error instanceof ZodError) {
         res.status(400).json({ error: "Invalid data", details: error.issues })
