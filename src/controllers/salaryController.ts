@@ -1,36 +1,34 @@
 import { Request, Response } from "express"
 import { ZodError } from "zod"
-import { getMatches } from "../data/matchData"
 import { getPlayers } from "../data/playerData"
+import { getMatches } from "../data/matchData"
 import { findPlayer, findPlayerMatches } from "../lib/player"
 import { calcTotalSalary } from "../services/salaryService"
 
-export const salaryController = (req: Request, res: Response) => {
-  try {
-    const players = getPlayers()
-    const matches = getMatches()
-    const playerId = Number(req.params.id)
+export class SalaryController {
+  public getPlayerSalary = (req: Request, res: Response): void => {
+    try {
+      const players = getPlayers()
+      const matches = getMatches()
+      const playerId = Number(req.params.id)
 
-    const player = findPlayer(players, playerId)
-    if (!player) {
-      return res.status(404).json({ error: "Player not found" })
-    }
-    
-    const playerMatches = findPlayerMatches(player.id, matches)
-    const result = calcTotalSalary(playerMatches)
+      const player = findPlayer(players, playerId)
+      if (!player) {
+        res.status(404).json({ error: "Player not found" })
+        return
+      }
 
-    if (!result) {
-      return res.status(404).json({ error: "Player not found" })
-    }
+      const playerMatches = findPlayerMatches(player.id, matches)
+      const salary = calcTotalSalary(playerMatches)
 
-    res.json(result)
-  } catch (error) {
-    if (error instanceof ZodError) {
-      return res
-        .status(400)
-        .json({ error: "Invalid data", details: error.issues })
+      res.json({ salary })
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.status(400).json({ error: "Invalid data", details: error.issues })
+        return
+      }
+      console.error("Unexpected error:", error)
+      res.status(500).json({ error: "Internal server error" })
     }
-    console.error("Unexpected error:", error)
-    return res.status(500).json({ error: "Internal server error" })
   }
 }
