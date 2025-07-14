@@ -1,4 +1,4 @@
-import { countPlayerSmashedRackets, countPlayerDoubleFaults } from "../stats/penalties"
+import { countPlayerSmashedRackets, countPlayerDoubleFaults } from "../penalties"
 
 describe("countPlayerSmashedRackets", () => {
   it("counts smashed rackets by the player", () => {

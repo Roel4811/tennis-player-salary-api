@@ -1,13 +1,9 @@
-import { SetScore } from "../../types"
-import {
-  countPlayerSetsWon,
-  countGamesWon,
-  countPlayerAces,
-} from "../stats/bonus"
+import { Result } from "../../../types"
+import { countPlayerSetsWon, countGamesWon, countPlayerAces } from "../bonus"
 
 describe("countPlayerSetsWon", () => {
   it("counts simple won sets correctly", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [6, 2],
       [4, 6],
       [7, 5],
@@ -18,7 +14,7 @@ describe("countPlayerSetsWon", () => {
   })
 
   it("returns 0 when no sets are completed", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [3, 2],
       [2, 3],
       [4, 4],
@@ -27,7 +23,7 @@ describe("countPlayerSetsWon", () => {
   })
 
   it("returns 0 when player has not won any completed sets", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [2, 6],
       [5, 7],
     ]
@@ -35,7 +31,7 @@ describe("countPlayerSetsWon", () => {
   })
 
   it("counts only fully won sets (player >= 6)", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [6, 0],
       [6, 4],
       [5, 4],

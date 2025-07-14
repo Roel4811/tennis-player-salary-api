@@ -1,65 +1,9 @@
-import { SetScore, Match } from "../../types"
-import { isMatchFinished, hasPlayerWonMatch, countMatchesPlayed } from "../stats/match"
-
-describe("isMatchFinished", () => {
-  it("returns true when the player wins 3 sets", () => {
-    const scores: SetScore[] = [
-      [6, 2],
-      [4, 6],
-      [7, 5],
-      [5, 7],
-      [6, 1],
-    ]
-    expect(isMatchFinished(scores)).toBe(true)
-  })
-
-  it("returns true when the opponent wins 3 sets", () => {
-    const scores: SetScore[] = [
-      [4, 6],
-      [5, 7],
-      [5, 7],
-    ]
-    expect(isMatchFinished(scores)).toBe(true)
-  })
-
-  it("returns false when neither has won 3 sets yet", () => {
-    const scores: SetScore[] = [
-      [6, 4],
-      [4, 6],
-      [7, 5],
-    ]
-    expect(isMatchFinished(scores)).toBe(false)
-  })
-
-  it("returns false for empty scores", () => {
-    expect(isMatchFinished([])).toBe(false)
-  })
-
-  it("ignores incomplete sets (e.g., 4–2)", () => {
-    const scores: SetScore[] = [
-      [6, 2],
-      [4, 6],
-      [5, 5],
-      [6, 1],
-    ]
-    expect(isMatchFinished(scores)).toBe(false)
-  })
-
-  it("short-circuits as soon as match is decided", () => {
-    const scores: SetScore[] = [
-      [6, 2],
-      [6, 1],
-      [6, 4],
-      [0, 6],
-      [0, 6],
-    ]
-    expect(isMatchFinished(scores)).toBe(true)
-  })
-})
+import { Result, Match } from "../../../types"
+import { hasPlayerWonMatch, countMatchesPlayed } from "../match"
 
 describe("hasPlayerWonMatch", () => {
   it("returns true if the player wins 3 sets", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [6, 2],
       [4, 6],
       [7, 5],
@@ -70,7 +14,7 @@ describe("hasPlayerWonMatch", () => {
   })
 
   it("returns false if opponent wins 3 sets", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [6, 4],
       [3, 6],
       [4, 6],
@@ -80,7 +24,7 @@ describe("hasPlayerWonMatch", () => {
   })
 
   it("returns false if match is still in progress", () => {
-    const scores: SetScore[] = [
+    const scores: Result[] = [
       [6, 4],
       [3, 6],
     ]

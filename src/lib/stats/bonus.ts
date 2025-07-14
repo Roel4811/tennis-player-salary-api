@@ -1,9 +1,11 @@
+import { Result } from "../../types"
+
 export const countPlayerAces = (aces: [number, number]): number => {
   const [playerAces] = aces
   return playerAces
 }
 
-export const countPlayerSetsWon = (scores: [number, number][]): number => {
+export const countPlayerSetsWon = (scores: Result[]): number => {
   return scores.filter(([player]) => {
     return player >= 6
   }).length
