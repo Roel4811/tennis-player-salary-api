@@ -3,10 +3,10 @@ export type Score = [number, number]
 export type Match = {
   playerId: number
   opponentId: number
-  result: Score
-  aces: number[]
-  smashedRackets: number[]
-  doubleFaults: number[]
+  result: Score[]
+  aces: [number, number]
+  smashedRackets: [number, number]
+  doubleFaults: [number, number]
 }
 
 export type Player = {

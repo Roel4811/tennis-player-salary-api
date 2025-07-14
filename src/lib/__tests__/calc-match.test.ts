@@ -158,7 +158,13 @@ describe("countMatchesPlayed", () => {
       {
         playerId: 1,
         opponentId: 2,
-        result: [6, 4],
+        result: [
+          [6, 2],
+          [4, 6],
+          [7, 5],
+          [5, 7],
+          [6, 1],
+        ],
         aces: [0, 0],
         smashedRackets: [0, 0],
         doubleFaults: [0, 0],
@@ -166,7 +172,12 @@ describe("countMatchesPlayed", () => {
       {
         playerId: 1,
         opponentId: 3,
-        result: [6, 4],
+        result: [
+          [6, 2],
+          [4, 6],
+          [3, 6],
+          [2, 6],
+        ],
         aces: [0, 0],
         smashedRackets: [0, 0],
         doubleFaults: [0, 0],
@@ -174,7 +185,11 @@ describe("countMatchesPlayed", () => {
       {
         playerId: 1,
         opponentId: 4,
-        result: [6, 4],
+        result: [
+          [6, 0],
+          [6, 2],
+          [6, 0],
+        ],
         aces: [0, 0],
         smashedRackets: [0, 0],
         doubleFaults: [0, 0],
