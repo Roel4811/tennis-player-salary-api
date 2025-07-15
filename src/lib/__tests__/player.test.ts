@@ -47,8 +47,10 @@ describe("getPlayerIndex", () => {
     expect(getPlayerIndex(match, 99)).toBe(1)
   })
 
-  it("returns 1 for any id not equal to playerId (even if not the opponentId)", () => {
+  it("throws an error if currentPlayerId is not in the match", () => {
     const match = makeMatch({ playerId: 42, opponentId: 99 })
-    expect(getPlayerIndex(match, 77)).toBe(1)
+    expect(() => getPlayerIndex(match, 77)).toThrow(
+      "Player ID 77 is not part of the match (expected 42 or 99)"
+    )
   })
 })
